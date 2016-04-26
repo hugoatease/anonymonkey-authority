@@ -4,7 +4,7 @@ from anonymonkey_authority.schemas import Survey
 from .auth import api_login, get_user
 from .fields import survey_fields
 import jwt
-import arrow
+import uuid
 import requests
 
 
@@ -50,9 +50,9 @@ class SurveyShareResource(Resource):
 
         token = jwt.encode({
             'iss': current_app.config['TOKEN_ISSUER'],
-            'iat': arrow.utcnow().datetime,
+            'jtid': str(uuid.uuid4()),
             'survey_id': str(survey.id)
-        }, current_app.config['SECRET_KEY'])
+        }, current_app.config['TOKEN_KEY'], algorithm='RS256')
 
         #url = url_for('index_all', path='/survey/' + str(survey.id), _external=True) + '?token=' + token
         url = 'http://localhost:8000/survey/' + str(survey.id) + '/?token=' + token
