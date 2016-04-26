@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <div id="app"></div>
+</div>
+{% endblock %}
+{% block javascript %}
+<script type="text/javascript">
+    anonymonkey_authority(document.getElementById('app'), JSON.parse('{{ params|safe }}'));
+</script>
+{% endblock %}

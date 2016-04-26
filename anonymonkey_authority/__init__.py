@@ -1,7 +1,8 @@
-from flask import Flask, g
+from flask import Flask, g, render_template
 from .schemas import db
 from api import api
 from redis import Redis
+import json
 
 
 app = Flask(__name__)
@@ -28,3 +29,10 @@ def after_request(response):
 
 db.init_app(app)
 api.init_app(app)
+
+
+@app.route('/survey_access/<token>')
+def survey_access(token):
+    return render_template('survey_access.html', params=json.dumps({
+        'token': token
+    }))

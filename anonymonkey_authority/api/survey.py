@@ -54,8 +54,7 @@ class SurveyShareResource(Resource):
             'survey_id': str(survey.id)
         }, current_app.config['TOKEN_KEY'], algorithm='RS256')
 
-        #url = url_for('index_all', path='/survey/' + str(survey.id), _external=True) + '?token=' + token
-        url = 'http://localhost:8000/survey/' + str(survey.id) + '/?token=' + token
+        url = url_for('survey_access', token=token, _external=True)
         html = render_template('email.html', survey_name='COUCOU', url=url)
 
         req = requests.post('https://api.mailgun.net/v3/' + current_app.config['MAILGUN_DOMAIN'] + '/messages', data={
