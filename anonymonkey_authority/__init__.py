@@ -1,4 +1,4 @@
-from flask import Flask, g, render_template
+from flask import Flask, g, render_template, jsonify
 from .schemas import db
 from api import api
 from redis import Redis
@@ -36,3 +36,14 @@ def survey_access(token):
     return render_template('survey_access.html', params=json.dumps({
         'token': token
     }))
+
+
+@app.route('/.well-known/anonymonkey')
+def discovery_endpoint():
+    return jsonify({
+        'token_key': {
+            'pem': {
+                'public': app.config['TOKEN_KEY_PUBLIC']
+            }
+        }
+    })
