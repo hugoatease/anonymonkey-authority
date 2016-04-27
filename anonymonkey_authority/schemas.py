@@ -14,5 +14,5 @@ class Survey(db.Document):
 
 
 class TokenBlacklist(db.Document):
-    survey = db.ReferenceField(db.Document, required=True)
+    survey = db.ReferenceField(Survey, required=True)
     jtid = db.StringField(required=True)
