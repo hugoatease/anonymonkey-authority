@@ -18,7 +18,8 @@ def check_jwt():
             return False
         g.id_token = claims
         return True
-    except:
+    except jwt.InvalidTokenError as ex:
+        print ex
         return False
 
 
