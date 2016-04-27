@@ -69,7 +69,7 @@ var SurveyAccess = React.createClass({
                 <div>
                     <h3>Answer survey</h3>
                     <a
-                        href={'http://localhost:8000/survey/' + this.state.survey_id + '?token=' + this.state.anonymous_token}
+                        href={jwtDecode(this.state.anonymous_token).aud + '/survey/' + this.state.survey_id + '?token=' + this.state.anonymous_token}
                         className="btn btn-success">
                         Answer survey
                     </a>

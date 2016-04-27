@@ -9,6 +9,8 @@ class User(db.Document):
 
 class Survey(db.Document):
     survey_id = db.StringField(required=True, primary_key=True)
+    name = db.StringField(required=True)
+    base_url = db.StringField(required=True)
     owner = db.ReferenceField(User, required=True)
     recipients = db.ListField(db.StringField())
 

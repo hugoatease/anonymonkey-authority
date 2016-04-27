@@ -7,8 +7,8 @@ from hashlib import sha256
 
 
 def decode_token(token):
-    return jwt.decode(token, key=current_app.config['TOKEN_KEY_PUBLIC'],
-                           algorithms='RS256', issuer=current_app.config['TOKEN_ISSUER'])
+    return jwt.decode(token, key=current_app.config['TOKEN_KEY_PUBLIC'], algorithms='RS256',
+                      issuer=current_app.config['TOKEN_ISSUER'], audience=current_app.config['TOKEN_ISSUER'])
 
 
 def check_token(token):
@@ -54,8 +54,11 @@ class TokenAuthorizeResource(Resource):
         c = g.redis.get('anonymonkey.c.' + token['survey_id'] + '.' + token['jtid'])
         g.redis.delete('anonymonkey.c.' + token['survey_id'] + '.' + token['jtid'])
 
+        survey = Survey.objects.with_id(token['survey_id'])
+
         anonymous_token = jwt.encode({
             'iss': current_app.config['TOKEN_ISSUER'],
+            'aud': survey.base_url,
             'token': sha256(c + args['value']).hexdigest(),
             'survey_id': token['survey_id']
         }, current_app.config['TOKEN_KEY'], algorithm='RS256')

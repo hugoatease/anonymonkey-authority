@@ -38,7 +38,7 @@ def survey_access(token):
     }))
 
 
-@app.route('/.well-known/anonymonkey')
+@app.route('/.well-known/anonymonkey-authority')
 def discovery_endpoint():
     return jsonify({
         'token_key': {
