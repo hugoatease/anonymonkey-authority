@@ -2,6 +2,7 @@ var React = require('react');
 var jwtDecode = require('jwt-decode');
 var request = require('superagent');
 var createHash = require('crypto').createHash;
+var swal = require('sweetalert');
 
 var SurveyAccess = React.createClass({
     getInitialState: function() {
@@ -29,7 +30,10 @@ var SurveyAccess = React.createClass({
         request.post('/api/tokens/initialize')
             .send({survey_token: this.props.token})
             .end(function(err, res) {
-                if (err) return;
+                if (err) {
+                    swal('Token error', 'Failed to validate email token. Maybe it has already been used.', 'error');
+                    return;
+                }
                 this.setState({h: res.body.h});
             }.bind(this));
     },
@@ -46,7 +50,10 @@ var SurveyAccess = React.createClass({
                 value: this.state.userValue
             })
             .end(function(err, res) {
-                if (err) return;
+                if (err) {
+                    swal('Token error', 'Unable to fetch anonymous token. Maybe it has already been fetched.', 'error');
+                    return;
+                }
                 console.log(res.body.c + this.state.userValue);
                 this.setState({
                     anonymous_token: res.body.token,
