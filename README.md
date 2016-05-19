@@ -10,6 +10,12 @@ anonymous tokens and assert access to surveys on survey servers.
 Please refer to [the anonymonkey repository](https://github.com/hugoatease/anonymonkey)
 for more information about project features, and dependencies.
 
+Documentation
+--------------
+Survey authority API documentation can be found at [docs.anonymonkeyauthority.apiary.io](http://docs.anonymonkeyauthority.apiary.io/).
+
+Survey service API documentation is available at [docs.anonymonkey.apiary.io](http://docs.anonymonkey.apiary.io/).
+
 Configuration and setup
 ============
 ## Quick start
